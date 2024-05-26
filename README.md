@@ -9,11 +9,11 @@
 
   返回的数据格式：
 
-  <img src="/Users/niushaolong/Library/Application%20Support/typora-user-images/image-20240526172211310.png" alt="image-20240526172211310" style="zoom:50%;" />
+  <img src="README.assets/image-20240526172211310.png" alt="image-20240526172211310" style="zoom:50%;" />
 
   - entries: 笔记条目
 
-    <img src="/Users/niushaolong/Library/Application%20Support/typora-user-images/image-20240526172852747.png" alt="image-20240526172852747" style="zoom:50%;" />
+    <img src="README.assets/image-20240526172852747.png" alt="image-20240526172852747" style="zoom:50%;" />
 
     - createDate:笔记创建时间戳
     - modifyDate:笔记最后一次修改的时间戳
