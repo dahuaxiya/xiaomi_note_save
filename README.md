@@ -1,7 +1,7 @@
 #
 该项目可以保存所有的笔记（默认按照创建时间排序）至output.md文档中
 
-## 思路
+# 思路
 
 1. 首先获取目录json
     https://i.mi.com/note/full/page/?limit=200
@@ -54,7 +54,7 @@
 
 
 
-## 获取cookie
+# 获取cookie
 
 获取目录的cookie：
 
@@ -95,3 +95,34 @@
 ### 	1. 获取folder列表
 
 因为要获取syncTag，因此要先向获取目录的url发送一次无syncTag的请求，该请求会返回一个syncTag，再携带该syncTag向获取目录的url发送一次请求，该请求返回的data中folders不为空，携带了所有分类信息。
+
+# 增加图片功能
+
+在笔记详情返回的json中，\['data']\['entry']\['setting']['data']中会有多媒体文件的信息：
+
+<img src="README.assets/image-20240611184717433.png" alt="image-20240611184717433" style="zoom:50%;" />
+
+如上图所示，若该笔记含有图片，则在上面路径下会保存每个图片信息：
+
+- digest：文件摘要
+- fileId：文件在小米云内部的名称，如142531362346.FJOads32OIJHjosajf
+- mimeType：文件类型，image/jpeg表示是jpeg格式的图片
+
+若笔记中有图片，则在笔记的content中图片会以html标签的形式出现：
+
+<img src="README.assets/image-20240611185517446.png" alt="image-20240611185517446" style="zoom:60%;" />
+
+形式如下：
+
+`<img fileid="xxxx" imgshow="" imgdes=""/>` 
+
+## 获取图片的api
+
+api：https://i.mi.com/file/full?type=note_img&fileid={fileId}
+
+<img src="README.assets/image-20240611192916931.png" alt="image-20240611192916931" style="zoom:50%;" />
+
+该地址会重定向到如下的地址：
+
+<img src="README.assets/image-20240611193151284.png" alt="image-20240611193151284" style="zoom:50%;" />
+
