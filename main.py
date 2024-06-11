@@ -36,6 +36,8 @@ def get_folders():
         response = requests.get(URL_GET_NOTES, cookies=cookie_main)
         syncTag = response.json()['data']['syncTag']
         response = requests.get(URL_GET_NOTES + "&syncTag=" + syncTag, cookies=cookie_main)
+        folders_info['2'] = {'subject': '私密空间', 'id': '2'}
+        folders_obj['2'] = []
         for item in response.json()['data']['folders']:
             folders_obj[item['id']] = []
             folders_info[item['id']] = {"subject": item['subject'], "id": item['id'],
@@ -120,8 +122,8 @@ def nextPage(syncTag=None):
                 print(detailUrl, '内容：', detailInfo['content'][:20])
                 resultArray.append(resultObj)
                 # 将笔记保存到分类字典中
-                if (resultObj['folderId'] in folders_obj):
-                    folders_obj[resultObj['folderId']].append(resultObj)
+                if (str(resultObj['folderId']) in folders_obj): # 将key强转为str防止key为int类型
+                    folders_obj[str(resultObj['folderId'])].append(resultObj)
         if result['data']['entries']:
             nextPage(result['data']['syncTag'])
 
@@ -181,8 +183,10 @@ def write_note(resObj: dict, f):
 
 
 def write_folder_info(folderObj: dict, f):
-    f.write('创建日期：' + dateFormat(folderObj['create_date']) + '\n')
-    f.write('修改日期：' + dateFormat(folderObj['modify_date']) + '\n')
+    if 'create_date' in folderObj:
+        f.write('创建日期：' + dateFormat(folderObj['create_date']) + '\n')
+    if 'modify_date' in folderObj:
+        f.write('修改日期：' + dateFormat(folderObj['modify_date']) + '\n')
     f.write('主题：' + folderObj['subject'] + '\n')
     f.write('\n')
     f.write('----------------------------------------------\n')
